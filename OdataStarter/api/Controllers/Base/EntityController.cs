@@ -15,6 +15,52 @@ namespace api.Controllers.Base
 
         protected Context context = new Context("odataStarter");
 
+        [HttpPatch]
+        [ODataRoute("({id})")]
+        public IHttpActionResult Patch([FromODataUri] Guid id, Delta<TEntity> patch) {
+
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
+            }
+
+            var target = context.Set<TEntity>().SingleOrDefault(x => x.Id == id);
+
+            if (target == null) {
+                return NotFound();
+            }
+
+            patch.Patch(target);
+
+            context.SaveChanges();
+
+            return Ok(target);
+
+        }
+
+        [HttpPut]
+        [ODataRoute("({id})")]
+        public IHttpActionResult Put([FromODataUri] Guid id, TEntity entity) {
+
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
+            }
+
+            var target = context.Set<TEntity>().SingleOrDefault(x => x.Id == id);
+
+            if (target == null) {
+                return NotFound();
+            }
+
+            entity.Id = target.Id;
+
+            context.Entry(target).CurrentValues.SetValues(entity);
+
+            context.SaveChanges();
+
+            return Ok(target);
+
+        }
+
         [HttpPost]
         [ODataRoute()]
         public IHttpActionResult Post(TEntity entity) {
