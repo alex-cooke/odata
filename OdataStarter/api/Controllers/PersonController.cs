@@ -43,6 +43,36 @@ namespace api.Controllers
             return CreateOKHttpActionResult(propertyValue);
         }
 
+        [ODataRoute("({id})/FirstName/$value")]
+        [ODataRoute("({id})/LastName/$value")]
+        [ODataRoute("({id})/DateOfBirth/$value")]
+        public IHttpActionResult GetPropertyValue([FromUri] Guid id) {
+
+            var entity = context.Person.SingleOrDefault(x => x.Id == id);
+
+            if (entity == null) {
+                return NotFound();
+            }
+
+            var propertyName = Url.Request.RequestUri.Segments.Reverse().ToArray()[1].Replace("/", "");
+
+            var propertyInfo = typeof(Person).GetProperty(propertyName);
+
+            if (propertyInfo == null) {
+                return NotFound();
+            }
+
+            var propertyValue = propertyInfo.GetValue(entity, new object[] { });
+
+            if (propertyValue == null) {
+                return StatusCode(System.Net.HttpStatusCode.NoContent);
+            }
+
+            return CreateOKHttpActionResult(propertyValue.ToString());
+        }
+
+
+
         [ODataRoute("({id})/Experiences")]
         public IHttpActionResult GetCollection([FromUri] Guid id) {
 
