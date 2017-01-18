@@ -14,7 +14,6 @@ namespace api.Controllers
     public class PersonController : EntityController<Person> {
 
 
-
         [ODataRoute("({id})/FirstName")]
         [ODataRoute("({id})/LastName")]
         [ODataRoute("({id})/DateOfBirth")]

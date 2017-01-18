@@ -13,6 +13,7 @@ namespace data.config {
 
             Property(x => x.Id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
 
+            HasMany(x => x.Experiences).WithRequired(e => e.Person).WillCascadeOnDelete(true);
         }
     }
 }

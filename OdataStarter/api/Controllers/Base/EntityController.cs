@@ -15,6 +15,24 @@ namespace api.Controllers.Base
 
         protected Context context = new Context("odataStarter");
 
+        [HttpDelete]
+        [ODataRoute("({id})")]
+        public IHttpActionResult Delete([FromODataUri] Guid id) {
+
+            var target = context.Set<TEntity>().SingleOrDefault(x => x.Id == id);
+
+            if (target == null) {
+                return NotFound();
+            }
+
+            context.Set<TEntity>().Remove(target);
+            context.SaveChanges();
+
+            return Ok(target);
+
+        }
+
+
         [HttpPatch]
         [ODataRoute("({id})")]
         public IHttpActionResult Patch([FromODataUri] Guid id, Delta<TEntity> patch) {
