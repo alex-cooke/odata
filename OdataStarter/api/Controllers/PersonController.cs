@@ -11,7 +11,7 @@ using System.Data.Entity;
 namespace api.Controllers
 {
     [ODataRoutePrefix("Person")]
-    public class PersonController : EntityController
+    public class PersonController : EntityController<Person>
     {
 
 

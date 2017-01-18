@@ -1,11 +1,12 @@
-﻿using System;
+﻿using model.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace model {
-    public class Person {
+    public class Person : IEntity {
 
         public Person() {
             Experiences = new List<Experience>();

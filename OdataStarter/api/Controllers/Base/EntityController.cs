@@ -1,5 +1,6 @@
 ﻿
 using data;
+using model.Base;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -9,7 +10,8 @@ using System.Web.OData.Routing;
 
 namespace api.Controllers.Base
 {
-    public abstract class EntityController : ODataController {
+    public abstract class EntityController<TEntity> : ODataController 
+        where TEntity : class, IEntity{
 
         protected Context context = new Context("odataStarter");
 
@@ -17,14 +19,14 @@ namespace api.Controllers.Base
         [HttpGet]
         [ODataRoute()]
         public IHttpActionResult Get() {
-            return Ok(context.Person);
+            return Ok(context.Set<TEntity>());
         }
 
         [HttpGet]
         [ODataRoute("({id})")]
         public virtual IHttpActionResult Get([FromODataUri] Guid id) {
 
-            var entity = context.Person.SingleOrDefault(x => x.Id == id);
+            var entity = context.Set<TEntity>().SingleOrDefault(x => x.Id == id);
 
             if (entity == null) {
                 return NotFound();

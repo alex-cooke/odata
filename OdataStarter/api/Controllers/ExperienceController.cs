@@ -1,9 +1,11 @@
 ﻿using api.Controllers.Base;
+using model;
+using System.Web.OData.Routing;
 
-namespace api.Controllers
-{
-    //public class ExperienceController : EntityController
-    //{
+namespace api.Controllers {
 
-    //}
+    [ODataRoutePrefix("Experience")]
+    public class ExperienceController : EntityController<Experience> {
+
+    }
 }
