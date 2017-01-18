@@ -26,7 +26,7 @@ namespace api
             //);
 
             config.MapODataServiceRoute("ODataRoute", "odata", GetEdmMode());
-
+            config.Count().Filter().OrderBy().Expand().Select().MaxTop(null);
             config.EnsureInitialized();
         }
 
@@ -35,7 +35,7 @@ namespace api
             var builder = new ODataConventionModelBuilder();
             builder.Namespace = "App";
             builder.ContainerName = "AppContainer";
-
+            
             builder.EntitySet<Person>("Person");
             builder.EntitySet<Experience>("Experience");
             builder.EntitySet<Experience>("Country");

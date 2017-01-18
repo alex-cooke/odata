@@ -1,5 +1,6 @@
 ﻿using Microsoft.OData;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
@@ -93,5 +94,12 @@ namespace api.Helpers {
         //    var value = ODataUriUtils.ConvertFromUriLiteral(keySegment.Value, Microsoft.OData.ODataVersion.V4);
         //    return (TKey)value;
         //}
+        public static IEnumerable<T> ObjectAsEnumerable<T>(this T item) {
+            yield return item;
+        }
+        public static IQueryable<T> ObjectAsQueryable<T>(this T item) {
+            return item.ObjectAsEnumerable().AsQueryable();
+        }
+
     }
 }

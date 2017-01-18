@@ -1,7 +1,9 @@
 ﻿
+using api.Helpers;
 using data;
 using model.Base;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Http;
@@ -75,12 +77,13 @@ namespace api.Controllers.Base
 
             context.SaveChanges();
 
-            return Ok(target);
+            return Ok(SingleResult.Create(target.ObjectAsQueryable()));
 
         }
 
         [HttpPost]
         [ODataRoute()]
+        [EnableQuery]
         public IHttpActionResult Post(TEntity entity) {
 
             if (!ModelState.IsValid) {
@@ -90,28 +93,30 @@ namespace api.Controllers.Base
             context.Set<TEntity>().Add(entity);
             context.SaveChanges();
 
-            return Created(entity);
+            return Ok(SingleResult.Create(entity.ObjectAsQueryable()));
 
         }
 
 
         [HttpGet]
         [ODataRoute()]
-        public IHttpActionResult Get() {
+        [EnableQuery]
+        public virtual IHttpActionResult Get() {
             return Ok(context.Set<TEntity>());
         }
 
         [HttpGet]
         [ODataRoute("({id})")]
+        [EnableQuery]
         public virtual IHttpActionResult Get([FromODataUri] Guid id) {
 
-            var entity = context.Set<TEntity>().SingleOrDefault(x => x.Id == id);
+            var entity = context.Set<TEntity>().Where(x => x.Id == id);
 
-            if (entity == null) {
+            if (!entity.Any()) {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity.ObjectAsQueryable()));
 
         }
 

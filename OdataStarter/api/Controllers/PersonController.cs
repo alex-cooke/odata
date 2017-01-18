@@ -8,13 +8,12 @@ using System.Web.OData;
 using System.Web.OData.Routing;
 using System.Data.Entity;
 using api.Helpers;
+using System.Web.OData.Query;
 
 namespace api.Controllers
 {
     [ODataRoutePrefix("Person")]
     public class PersonController : EntityController<Person> {
-
-
 
         //[HttpPost]
         //[ODataRoute("({id})/Friends/$ref")]
@@ -92,9 +91,13 @@ namespace api.Controllers
 
 
         [ODataRoute("({id})/Experiences")]
+        [EnableQuery]
         public IHttpActionResult GetCollection([FromUri] Guid id) {
 
-            var entity = context.Person.Include(x => x.Experiences).SingleOrDefault(x => x.Id == id);
+            var entity = context
+                .Person
+                .Include(x => x.Experiences)
+                .SingleOrDefault(x => x.Id == id);
 
             if (entity == null) {
                 return NotFound();
