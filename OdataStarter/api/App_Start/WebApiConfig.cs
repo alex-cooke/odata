@@ -37,6 +37,7 @@ namespace api
             builder.ContainerName = "AppContainer";
 
             builder.EntitySet<Person>("Person");
+            builder.EntitySet<Experience>("Experience");
 
             return builder.GetEdmModel();
         }

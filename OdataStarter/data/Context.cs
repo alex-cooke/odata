@@ -11,14 +11,16 @@ namespace data {
     public class Context : DbContext {
 
         public Context(string connectionStringName) : base(connectionStringName) {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
+            Database.SetInitializer(new ContextInitializer());
         }
 
         public DbSet<Person> Person { get; set; }
+        public DbSet<Experience> Experience { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
 
             modelBuilder.Configurations.Add(new PersonConfiguration());
+            modelBuilder.Configurations.Add(new ExperienceConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
