@@ -13,8 +13,6 @@ namespace api.Controllers
     [ODataRoutePrefix("Person")]
     public class PersonController : EntityController<Person>
     {
-
-
         [ODataRoute("({id})/FirstName")]
         [ODataRoute("({id})/LastName")]
         [ODataRoute("({id})/DateOfBirth")]

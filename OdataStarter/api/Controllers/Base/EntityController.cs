@@ -15,6 +15,21 @@ namespace api.Controllers.Base
 
         protected Context context = new Context("odataStarter");
 
+        [HttpPost]
+        [ODataRoute()]
+        public IHttpActionResult Post(TEntity entity) {
+
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
+            }
+
+            context.Set<TEntity>().Add(entity);
+            context.SaveChanges();
+
+            return Created(entity);
+
+        }
+
 
         [HttpGet]
         [ODataRoute()]
