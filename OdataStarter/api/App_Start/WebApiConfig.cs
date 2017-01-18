@@ -38,6 +38,7 @@ namespace api
 
             builder.EntitySet<Person>("Person");
             builder.EntitySet<Experience>("Experience");
+            builder.EntitySet<Experience>("Country");
 
             return builder.GetEdmModel();
         }

@@ -10,11 +10,16 @@ namespace model {
 
         public Person() {
             Experiences = new List<Experience>();
+            Friends = new List<Person>();
         }
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTimeOffset? DateOfBirth { get; set; }
         public virtual List<Experience> Experiences { get; set; }
+
+        public virtual Country CountryOfBirth { get; set; }
+
+        public virtual List<Person> Friends { get; set; }
     }
 }

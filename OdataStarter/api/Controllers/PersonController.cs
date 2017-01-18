@@ -7,12 +7,31 @@ using System.Web.Http;
 using System.Web.OData;
 using System.Web.OData.Routing;
 using System.Data.Entity;
+using api.Helpers;
 
 namespace api.Controllers
 {
     [ODataRoutePrefix("Person")]
     public class PersonController : EntityController<Person> {
 
+
+
+        //[HttpPost]
+        //[ODataRoute("({id})/Friends/$ref")]
+        //public IHttpActionResult AddFriend([FromODataUri] Guid id, [FromBody] Uri link) {
+
+        //    var target = context.Person.SingleOrDefault(x => x.Id == id);
+
+        //    if (target == null) {
+        //        return NotFound();
+        //    }
+
+        //    Guid friendKey = Request.GetKeyValue<Guid>(link);
+
+        //    return null;
+
+
+        //}
 
         [ODataRoute("({id})/FirstName")]
         [ODataRoute("({id})/LastName")]

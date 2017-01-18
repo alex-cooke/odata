@@ -17,10 +17,13 @@ namespace data {
         public DbSet<Person> Person { get; set; }
         public DbSet<Experience> Experience { get; set; }
 
+        public DbSet<Country> Country { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
 
             modelBuilder.Configurations.Add(new PersonConfiguration());
             modelBuilder.Configurations.Add(new ExperienceConfiguration());
+            modelBuilder.Configurations.Add(new CountryConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

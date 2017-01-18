@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="config\ExperienceConfiguration.cs" />
+    <Compile Include="config\CountryConfiguration.cs" />
     <Compile Include="config\PersonConfiguration.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="ContextInitializer.cs" />
